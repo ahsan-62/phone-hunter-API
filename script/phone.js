@@ -47,13 +47,28 @@ const loadPhone = async (searchText) => {
             phoneContainer.appendChild(phoneDiv);
         });
 
+        loader(false);
+
     }
 
 
 
     function searchPhone(){
+
+        loader( true);
         const searchInput=document.getElementById('search-field');
         const searchText=searchInput.value;
         console.log(searchText);
         loadPhone(searchText);
     }
+
+    function loader(isLoading){
+
+        const spinner=document.getElementById('loader');
+        if(isLoading){
+            spinner.classList.remove('hidden');
+           }
+           else{
+            spinner.classList.add('hidden');
+           }
+}
