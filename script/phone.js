@@ -1,24 +1,31 @@
 
 
 
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText,isShowAll) => {
 
     const res = await fetch ( `https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phone=data.data;
 
+    console.log(isShowAll);
     const showAll=document.getElementById('show-all');
-    if(phone.length>20){
+    if(phone.length>10 ){
         showAll.classList.remove('hidden');
     }
     else{
         showAll.classList.add('hidden');
     }
-    const phones=phone.slice(0,10);
+
+    if(isShowAll){
+        displayPhone(phone);
+        showAll.classList.add('hidden');
+
+    }
+    else{
+        const phones=phone.slice(0,10);
+        displayPhone(phones);
+    }
     
-
-
-    displayPhone(phones);
 }
 
     function displayPhone(phones){
@@ -53,13 +60,13 @@ const loadPhone = async (searchText) => {
 
 
 
-    function searchPhone(){
+    function searchPhone(isShowAll){
 
         loader( true);
         const searchInput=document.getElementById('search-field');
         const searchText=searchInput.value;
         console.log(searchText);
-        loadPhone(searchText);
+        loadPhone(searchText,isShowAll);
     }
 
     function loader(isLoading){
@@ -71,4 +78,9 @@ const loadPhone = async (searchText) => {
            else{
             spinner.classList.add('hidden');
            }
-}
+         }
+
+         function showAllPhone(){
+                
+            searchPhone(true);
+         }
