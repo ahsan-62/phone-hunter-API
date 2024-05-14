@@ -7,9 +7,16 @@ const loadPhone = async (searchText) => {
     const data = await res.json();
     const phone=data.data;
 
+    const showAll=document.getElementById('show-all');
+    if(phone.length>20){
+        showAll.classList.remove('hidden');
+    }
+    else{
+        showAll.classList.add('hidden');
+    }
+    const phones=phone.slice(0,10);
     
 
-    const phones=phone.slice(0,3);
 
     displayPhone(phones);
 }
