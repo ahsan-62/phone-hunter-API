@@ -1,19 +1,24 @@
 
 
 
-const loadPhone = async () => {
+const loadPhone = async (searchText) => {
 
-    const res = await fetch ('https://openapi.programming-hero.com/api/phones?search=iphone');
+    const res = await fetch ( `https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
-    const phones =data.data;
+    const phone=data.data;
+
+    
+
+    const phones=phone.slice(0,3);
 
     displayPhone(phones);
-
 }
 
     function displayPhone(phones){
 
         const phoneContainer = document.getElementById('phone-container');
+
+        phoneContainer.innerHTML=``; //search kore na paile ba same jinish search dile jno 1tai show koree
 
         phones.forEach( phone => {
             const phoneDiv= document.createElement('div');
@@ -37,4 +42,11 @@ const loadPhone = async () => {
 
     }
 
-loadPhone();
+
+
+    function searchPhone(){
+        const searchInput=document.getElementById('search-field');
+        const searchText=searchInput.value;
+        console.log(searchText);
+        loadPhone(searchText);
+    }
